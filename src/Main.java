@@ -11,30 +11,30 @@ public class Main {
 
         menu.addMenuOption("Linear searching", Main::performLinearSearch);
         menu.addMenuOption("Binary searching", Main::performBinarySearch);
-        menu.addMenuOption("O(n^2) type of sorting", () -> System.out.println("Exp sort"));
+        menu.addMenuOption("O(n^2) type of sorting", Main::performInsertionSort);
         menu.addMenuOption("O(n*log(n)) type of sorting", () -> System.out.println("Ln sort"));
         menu.addMenuOption("Sorting performance", () -> System.out.println("Cmp"));
 
         menu.start();
     }
 
-    private static void performLinearSearch(){
+    private static void performLinearSearch() {
         final int upperBound = 9;
         final int lowerBound = 0;
         List<Integer> list = new ArrayList<>();
-        for (int i = lowerBound; i <= upperBound; i++){
+        for (int i = lowerBound; i <= upperBound; i++) {
             list.add(i);
         }
 
         System.out.printf("In the list are values %d, ..., %d\n", lowerBound, upperBound);
         System.out.print("Which value would you like to search with linear search? ");
 
-        try{
+        try {
             String val = input.nextLine();
             int element = Integer.parseInt(val);
 
-            for(int i : list){
-                if(element == i){
+            for (int i : list) {
+                if (element == i) {
                     System.out.println("\nFound");
                     return;
                 }
@@ -46,36 +46,35 @@ public class Main {
         }
     }
 
-    private static void performBinarySearch(){
+    private static void performBinarySearch() {
         final int upperBound = 9;
         final int lowerBound = 0;
         List<Integer> list = new ArrayList<>();
-        for (int i = lowerBound; i <= upperBound; i++){
+        for (int i = lowerBound; i <= upperBound; i++) {
             list.add(i);
         }
 
         System.out.printf("In the list are values %d, ..., %d\n", lowerBound, upperBound);
         System.out.print("Which value would you like to search with linear search? ");
 
-        try{
+        try {
             String val = input.nextLine();
             int element = Integer.parseInt(val);
 
             int l = 0;
-            int r = list.size()-1;
+            int r = list.size() - 1;
 
-            while(l <= r){
-                int middle = (l+r)/2;
+            while (l <= r) {
+                int middle = (l + r) / 2;
 
-                if(list.get(middle) == element){
+                if (list.get(middle) == element) {
                     System.out.println("\nFound");
                     return;
                 }
 
-                if(list.get(middle) > element){
+                if (list.get(middle) > element) {
                     r = middle - 1;
-                }
-                else{
+                } else {
                     l = middle + 1;
                 }
             }
@@ -85,4 +84,34 @@ public class Main {
             System.out.println("Invalid input. Try again.");
         }
     }
+
+    private static void printData(int[] data) {
+        for (Integer i : data) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    private static void performInsertionSort() {
+        int[] data = {-93, -36, 25, 44, -30, -21, 34, 56, 82, 64};
+
+        System.out.println("\nData set before insertion sorting:");
+        printData(data);
+
+        for (int i = 1; i < data.length; i++) {
+            int key = data[i];
+            int j = i - 1;
+
+
+            while (j >= 0 && data[j] > key) {
+                data[j + 1] = data[j];
+                j = j - 1;
+            }
+            data[j + 1] = key;
+        }
+
+        System.out.println("\nData set after insertion sorting:");
+        printData(data);
+    }
+
 }
